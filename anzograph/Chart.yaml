@@ -1,0 +1,15 @@
+name: anzograph
+home: kubernetes.io/
+version: 1.0.0
+keywords:
+- anzograph
+- graph database
+- cambridgesemantics
+appVersion: 1
+description: CSI Anzograph deployment on K8s 
+maintainers:
+- name: Mitesh Kelaskar
+  email: mitesh.kelaskar@cambridgesemantics.com
+- name: Rakesh Zingade
+  email: rakesh.zingade@cambridgesemantics.com
+
