@@ -9,7 +9,14 @@ To install the charts with release name csi-anzograph execute following helm com
 $ helm install --name <release-name> -f values.yaml .
 ```
 This will deploy the single POD anzograph on targetted kubernetes cluster with default configurations. 
-> Note that you need at least xx GB of RAM, xx number of CPUs. These resource parameters can be customised by editing values.yaml or by providing 'CsiAnzograph.LeaderNode.Resources.Cpu' and 'CsiAnzograph.LeaderNode.Resources.Memory' params at the time of deployment
+> Note that you need at least 8 GB of RAM, 2 vCPUs. These resource parameters can be customised by editing values.yaml or by providing 'CsiAnzograph.LeaderNode.Resources.Cpu' and 'CsiAnzograph.LeaderNode.Resources.Memory' params at the time of deployment
+
+Specify configuration parameters using ```-set key=value[,key=value]``` argument to ```helm install```
+
+Execute following command to pull the values.yaml before deploying the release 
+```sh
+$ helm inspect values csi-helm/anzograph
+```
 
 ## Configuration
 The following table lists the configurable parameters of the anzograph chart and their default values
@@ -27,11 +34,14 @@ The following table lists the configurable parameters of the anzograph chart and
 | `AnzographUICredentials.user_cert_path`     | AnzoGraph UI access certificate file path                  | ""                                                             |
 | `AnzographUICredentials.user_key_path`      | AnzoGraph UI access certificate key file path              | ""                                                             |
 | `AnzographUICredentials.user_ca_cert_path`  | AnzoGraph UI access ca certificate file path               | ""                                                             |
+| `AnzographUIService.Ports.Jetty_Https.Port`  | AnzoGraph https UI access port configured on the POD             | 443                                                         |
+| `AnzographUIService.Ports.Jetty_Https.TargetPort` | AnzoGraph https UI access port configured on the Service         | 8443                                                            |
 | `AnzographUIService.Ports.Jetty_Http.Port`  | AnzoGraph UI access port configured on the POD             | 80                                                         |
 | `AnzographUIService.Ports.Jetty_Http.TargetPort` | AnzoGraph UI access port configured on the Service         | 8080                                                            |
 
-Next release details:
+###Known Limitations:
+* Only single POD AnzoGraph cluster is supported
+* Memory limit is 8 GB, supports 4 vCPUs
+* The AnzoGraph docker version comes with default license valid for 2 months
 
-Reference:
-
-
+###Reference: ```https://docs.cambridgesemantics.com/home.htm```
