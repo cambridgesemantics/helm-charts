@@ -2,19 +2,19 @@
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
-  name: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}-{{ .Release.Name }}"
   labels:
-    app: "{{ .Chart.Name }}"
+    app: "{{ .Release.Name }}"
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    component: "{{ .Chart.Name }}-leader"
+    component: "{{ .Chart.Name }}-{{ .Release.Name }}-leader"
 spec:
-  serviceName: "{{ .Chart.Name }}"
+  serviceName: "{{ .Chart.Name }}-{{ .Release.Name }}"
   replicas: 1
   template:
     metadata:
       labels:
-        app: "{{ .Chart.Name }}"
-        component: "{{ .Chart.Name }}-leader"
+        app: "{{ .Release.Name }}"
+        component: "{{ .Chart.Name }}-{{ .Release.Name }}-leader"
     spec:
       containers:
       - name: "{{ .Chart.Name }}"
@@ -30,8 +30,17 @@ spec:
         volumeMounts:
         - name: jetty-credentials
           mountPath: /jetty-credentials
+        {{- if .Values.User_Certs  }}
+        - name: "{{ .Release.Name }}-configmap"
+          mountPath: /user-certs
+        {{- end  }}
       volumes:
       - name: jetty-credentials
         secret:
           secretName: "{{ .Release.Name }}-ui-secrets"
+      {{- if .Values.User_Certs  }}
+      - name: "{{ .Release.Name }}-configmap"
+        configMap:
+          name: "{{ .Release.Name }}-configmap"
+      {{- end  }}
       terminationGracePeriodSeconds: 30

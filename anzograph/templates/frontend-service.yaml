@@ -3,16 +3,16 @@ kind: Service
 metadata:
   name: "{{ .Release.Name }}-ui"
   labels:
-    app: "{{ .Chart.Name }}"
+    app: "{{ .Release.Name }}"
 spec:
   ports:
-  - port: 443
+  - port: {{ .Values.AnzographUIService.Ports.Jetty_Https.Port }}
     targetPort: 8443
     name: https
   - port: {{ .Values.AnzographUIService.Ports.Jetty_Http.Port }}
-    targetPort: {{ .Values.AnzographUIService.Ports.Jetty_Http.TargetPort }}
+    targetPort: 8080
     protocol: TCP
     name: http
   selector:
-    app: "{{ .Chart.Name }}"
+    app: "{{ .Release.Name }}"
   type: LoadBalancer

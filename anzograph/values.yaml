@@ -18,16 +18,16 @@ AnzographUICredentials:
   QUERYUser: "query"
   QUERYUserPassword: "Passw0rd2"
   
-# the https ports are non-ediatble
-# defaults are
-#   Jetty_Https:
-#     Port: 443
-#     TargetPort: 8443
+# UI frontend LB service 
+# The target ports are non-editable
 AnzographUIService:
   Ports:
-    Jetty_Http:
-      Port: 80
-      TargetPort: 8080
+   Jetty_Https:
+     Port: 443
+     TargetPort: 8443
+   Jetty_Http:
+     Port: 80
+     TargetPort: 8080
 
 # Anzograph configmap variables to specify existing certs with path 
 User_Certs: false
