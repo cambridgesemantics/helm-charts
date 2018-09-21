@@ -8,8 +8,8 @@ CsiAnzograph:
   Image: "docker.io/cambridgesemantics/anzograph:latest"
   ImagePullPolicy: "IfNotPresent"
   Resources:
-    Cpu: "4000m"
-    Memory: "8000Mi"
+    Cpu: "2000m"
+    Memory: "7000Mi"
 
 # Anzograph UI credentials
 AnzographUICredentials:
